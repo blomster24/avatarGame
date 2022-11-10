@@ -1,9 +1,17 @@
 let playerAttack = ""
 let enemyAttack = ""
 let resultGame = ""
+let playerLives = 3
+let enemyLives = 3
 
 
 function startGame() {
+    let sectionSelectAttack = document.getElementById("select-attack")
+    sectionSelectAttack.style.display = "none"
+    let sectionRestart=document.getElementById("restart")
+    sectionRestart.style.display = "none"
+
+
     let buttonAvatarPlayer = document.getElementById("avatar-button")
     buttonAvatarPlayer.addEventListener("click", selectAvatarPlayer)
 
@@ -15,10 +23,15 @@ function startGame() {
     buttonWater.addEventListener("click", attackWater)
     let buttonEarth = document.getElementById("earth-button")
     buttonEarth.addEventListener("click", attackEarth)
+
+    let buttonRestart = document.getElementById("restart-button")
+    buttonRestart.addEventListener("click", restartGame)
+    
 }
 
 function selectAvatarPlayer() {
-    let result = "You selected "
+
+
     let inputKorra = document.getElementById("korra")
     let inputAang = document.getElementById("aang")
     let inputRoku = document.getElementById("roku")
@@ -34,8 +47,17 @@ function selectAvatarPlayer() {
         spanPlayerAvatar.innerHTML = "Roku"
     } else if (inputKyoshi.checked) {
         spanPlayerAvatar.innerHTML = "Kyoshi"
+    } else {
+        alert("You didn't selected an Avatar")
     }
-    selectEnemysAvatar()
+
+    if (spanPlayerAvatar.innerHTML != "") {
+        let sectionSelectAvatar = document.getElementById("select-avatar")
+        sectionSelectAvatar.style.display = "none"
+        let sectionSelectAttack = document.getElementById("select-attack")
+        sectionSelectAttack.style.display = "block"
+        selectEnemysAvatar()
+    }
 
 }
 
@@ -102,21 +124,43 @@ function randomEnemyAttack() {
 }
 
 function fight() {
+    let spanPlayerLives = document.getElementById("player-lives")
+    let spanEnemyLives = document.getElementById("enemy-lives")
+
+
     if (playerAttack == "WATER" && (enemyAttack == "EARTH" || enemyAttack == "FIRE")) {
         resultGame = "YOU WON!! 🥳"
+        enemyLives--
+        spanEnemyLives.innerHTML = enemyLives
     } else if (playerAttack == "EARTH" && enemyAttack == "FIRE") {
         resultGame = "YOU WON!! 🥳"
+        enemyLives--
+        spanEnemyLives.innerHTML = enemyLives
     } else if (playerAttack == "FIRE" && enemyAttack == "AIR") {
         resultGame = "YOU WON!! 🥳"
-    }else if(playerAttack=="AIR" &&(enemyAttack=="WATER"|| enemyAttack=="EARTH")){
+        enemyLives--
+        spanEnemyLives.innerHTML = enemyLives
+    } else if (playerAttack == "AIR" && (enemyAttack == "WATER" || enemyAttack == "EARTH")) {
         resultGame = "YOU WON!! 🥳"
-    }else if(playerAttack==enemyAttack){
+        enemyLives--
+        spanEnemyLives.innerHTML = enemyLives
+    } else if (playerAttack == enemyAttack) {
         resultGame = "TIE"
-    }else{
+    } else {
         resultGame = "YOU LOST 😭"
+        playerLives--
+        spanPlayerLives.innerHTML = playerLives
     }
-
     createMessage()
+    win()
+}
+
+function win() {
+    if (enemyLives == 0) {
+        createFinalMessage("YOU WON THE GAME!!!!!")
+    } else if (playerLives == 0) {
+        createFinalMessage("THE ENEMY WON THE GAME")
+    }
 }
 
 function createMessage() {
@@ -126,6 +170,31 @@ function createMessage() {
     paragragh.innerHTML = "Your avatar attacked with " + playerAttack + ", enemy's avatar attacked with " + enemyAttack + " - " + resultGame
 
     sectionMessages.appendChild(paragragh)
+}
+
+function createFinalMessage(result) {
+    let sectionMessages = document.getElementById("messages")
+
+    let paragragh = document.createElement("p")
+    paragragh.innerHTML = result
+
+    sectionMessages.appendChild(paragragh)
+
+    let buttonAir = document.getElementById("air-button")
+    buttonAir.disabled = true
+    let buttonFire = document.getElementById("fire-button")
+    buttonFire.disabled = true
+    let buttonWater = document.getElementById("water-button")
+    buttonWater.disabled = true
+    let buttonEarth = document.getElementById("earth-button")
+    buttonEarth.disabled = true
+
+    let sectionRestart=document.getElementById("restart")
+    sectionRestart.style.display = "block"
+}
+
+function restartGame() {
+    location.reload()
 }
 
 function numRandom(min, max) {
