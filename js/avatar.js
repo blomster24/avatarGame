@@ -8,7 +8,7 @@ let enemyLives = 3
 function startGame() {
     let sectionSelectAttack = document.getElementById("select-attack")
     sectionSelectAttack.style.display = "none"
-    let sectionRestart=document.getElementById("restart")
+    let sectionRestart = document.getElementById("restart")
     sectionRestart.style.display = "none"
 
 
@@ -26,7 +26,7 @@ function startGame() {
 
     let buttonRestart = document.getElementById("restart-button")
     buttonRestart.addEventListener("click", restartGame)
-    
+
 }
 
 function selectAvatarPlayer() {
@@ -55,7 +55,7 @@ function selectAvatarPlayer() {
         let sectionSelectAvatar = document.getElementById("select-avatar")
         sectionSelectAvatar.style.display = "none"
         let sectionSelectAttack = document.getElementById("select-attack")
-        sectionSelectAttack.style.display = "block"
+        sectionSelectAttack.style.display = "flex"
         selectEnemysAvatar()
     }
 
@@ -164,21 +164,25 @@ function win() {
 }
 
 function createMessage() {
-    let sectionMessages = document.getElementById("messages")
+    let sectionMessages = document.getElementById("result")
+    let divPlayerAttack = document.getElementById("player-attacks")
+    let divEnemyAttack = document.getElementById("enemy-attacks")
 
-    let paragragh = document.createElement("p")
-    paragragh.innerHTML = "Your avatar attacked with " + playerAttack + ", enemy's avatar attacked with " + enemyAttack + " - " + resultGame
+    let newPlayerAttack = document.createElement("p")
+    let newEnemyAttack = document.createElement("p")
 
-    sectionMessages.appendChild(paragragh)
+    sectionMessages.innerHTML = resultGame
+    newPlayerAttack.innerHTML = playerAttack
+    newEnemyAttack.innerHTML = enemyAttack
+
+    divPlayerAttack.appendChild(newPlayerAttack)
+    divEnemyAttack.appendChild(newEnemyAttack)
 }
 
 function createFinalMessage(result) {
-    let sectionMessages = document.getElementById("messages")
+    let sectionMessages = document.getElementById("result")
 
-    let paragragh = document.createElement("p")
-    paragragh.innerHTML = result
-
-    sectionMessages.appendChild(paragragh)
+    sectionMessages.innerHTML = result
 
     let buttonAir = document.getElementById("air-button")
     buttonAir.disabled = true
@@ -189,7 +193,7 @@ function createFinalMessage(result) {
     let buttonEarth = document.getElementById("earth-button")
     buttonEarth.disabled = true
 
-    let sectionRestart=document.getElementById("restart")
+    let sectionRestart = document.getElementById("restart")
     sectionRestart.style.display = "block"
 }
 

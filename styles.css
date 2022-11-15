@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Mansalva&display=swap');
+
+body {
+    font-family: 'Mansalva', cursive;
+    background-image: url("./assets/background.jpg");
+    
+}
+
+#select-avatar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    color: black;
+    font-size: 40px;
+}
+
+.subtitle {
+    color: black;
+    font-size: 28px;
+}
+
+.cards,
+.buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.avatar-card {
+
+    width: 150px;
+    height: 180px;
+    background-color: #f4e0ab;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    display: flex;
+    color: black;
+    border: #d38b57 3px solid;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar-card img {
+    width: 80px;
+}
+
+#avatar-button {
+    width: 180px;
+    height: 45px;
+    border-radius: 15px;
+    background: #f4e0ab;
+    border: 3px solid #d38b57;
+    color: black;
+    font-family: "Mansalva", cursive;
+    margin-top: 3rem;
+}
+
+#avatar-button:hover{
+    border: black 3px solid;
+}
+
+input {
+    display: none;
+}
+
+input:checked+label {
+    border-color: black;
+    color: black;
+}
+
+#select-attack {
+    flex-direction: column;
+    align-items: center;
+}
+
+.button-attack {
+    background-color: #f4e0ab;
+    border-radius: 15px;
+    color: black;
+    font-family: "Mansalva", cursive;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100px;
+    border: #d38b57 3px solid;
+}
+
+.button-attack:hover{
+    border: black 3px solid;
+}
+
+#messages {
+    width: 15rem;
+    background-color: #f4e0ab;
+    color: black;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border: #d38b57 3px solid;
+}
+
+#restart-button {
+    border: #d38b57 2px solid;
+    border-radius: 10px;
+    color: black;
+    background-color: #f4e0ab;
+    font-family: "Mansalva", cursive;
+}
+
+#restart-button:hover{
+    border: black 2px solid;
+}
+
+.attacks {
+    display: grid;
+    grid-template-columns: 100px 100px;
+}
+
+.attacks-player,.attacks-enemy{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+
+@media (max-width:360px) {
+
+    .cards,
+    .buttons {
+        flex-direction: column;
+    }
+
+}

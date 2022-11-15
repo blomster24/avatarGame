@@ -7,48 +7,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Avatar</title>
     <script src="./js/avatar.js"></script>
+    <link rel="stylesheet" href="./styles.css">
 </head>
 
 <body>
-    <h1>AVATAR 💨 🔥 💧 🌱</h1>
 
     <section id="select-avatar">
-        <h2>Choose your Avatar</h2>
+        <h1 id="" class="title">AVATAR FIGHT</h1>
 
-        <input type="radio" name="avatar" id="korra">
-        <label for="korra">Korra</label><br>
-        <input type="radio" name="avatar" id="aang">
-        <label for="aang">Aang</label><br>
-        <input type="radio" name="avatar" id="roku">
-        <label for="roku">Roku</label><br>
-        <input type="radio" name="avatar" id="kyoshi">
-        <label for="kyoshi">Kyoshi</label><br>
-        
+        <h2 class="subtitle">Choose your Avatar</h2>
+
+        <div class="cards">
+            <input type="radio" name="avatar" id="korra">
+            <label class="avatar-card" for="korra">
+                <p>Korra</p>
+                <img src="./assets/korra.png" alt="Korra">
+            </label>
+            <input type="radio" name="avatar" id="aang">
+            <label class="avatar-card" for="aang">
+                <p>Aang</p>
+                <img src="./assets/Avatar_Aang.png" alt="Aang">
+            </label>
+            <input type="radio" name="avatar" id="roku">
+            <label class="avatar-card" for="roku">
+                <p>Roku</p>
+                <img src="./assets/roku.png" alt="Roku">
+            </label>
+            <input type="radio" name="avatar" id="kyoshi">
+            <label class="avatar-card" for="kyoshi">
+                <p>Kyoshi</p>
+                <img src="./assets/kyoshi.png" alt="Kyoshi">
+            </label>
+        </div>
+
 
         <button id="avatar-button">SELECT AVATAR</button>
 
     </section>
 
     <section id="select-attack">
-        <h2>Choose your attack</h2>
-        <p>Your avatar <span id="player-avatar"></span> has <span id="player-lives">3</span> lives</p>
-        <p>Enemy's avatar <span id="enemys-avatar"></span>has <span id="enemy-lives">3</span> lives</p>
-        <p>
-            <button id="air-button">Air 💨</button>
-            <button id="fire-button">Fire 🔥</button>
-            <button id="water-button">Water 💧</button>
-            <button id="earth-button">Earth 🌱</button>
-        </p>
+        <h1 id="" class="title">AVATAR FIGHT</h1>
+        <h2 class="subtitle">Choose your attack</h2>
+        <div class="buttons">
+            <button id="air-button" class="button-attack">Air 💨</button>
+            <button id="fire-button" class="button-attack">Fire 🔥</button>
+            <button id="water-button" class="button-attack">Water 💧</button>
+            <button id="earth-button" class="button-attack">Earth 🌱</button>
+        </div>
+
+        <div id="messages">
+            <p id="result">Good Luck!</p>
+            <section id="restart">
+                <button id="restart-button">Restart</button>
+            </section>
+        </div>
+
+        <div class="attacks">
+            <div class="attacks-player">
+                <p id="player-lives">3</p>
+                <p id="player-avatar"></p>
+                <div id="player-attacks"></div>
+
+            </div>
+            <div class="attacks-enemy">
+                <p id="enemy-lives">3</p>
+                <p id="enemys-avatar"></p>
+                <div id="enemy-attacks"></div>
+            </div>
+
+        </div>
     </section>
 
-    <section id="messages">
-        
 
-    </section>
-
-    <section id="restart">
-        <button id="restart-button">Restart</button>
-    </section>
 
 
 </body>
