@@ -3,7 +3,7 @@
 body {
     font-family: 'Mansalva', cursive;
     background-image: url("./assets/background.jpg");
-    
+
 }
 
 #select-avatar {
@@ -59,7 +59,7 @@ body {
     margin-top: 3rem;
 }
 
-#avatar-button:hover{
+#avatar-button:hover {
     border: black 3px solid;
 }
 
@@ -88,7 +88,7 @@ input:checked+label {
     border: #d38b57 3px solid;
 }
 
-.button-attack:hover{
+.button-attack:hover {
     border: black 3px solid;
 }
 
@@ -113,7 +113,7 @@ input:checked+label {
     font-family: "Mansalva", cursive;
 }
 
-#restart-button:hover{
+#restart-button:hover {
     border: black 2px solid;
 }
 
@@ -122,7 +122,8 @@ input:checked+label {
     grid-template-columns: 100px 100px;
 }
 
-.attacks-player,.attacks-enemy{
+.attacks-player,
+.attacks-enemy {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -138,3 +139,5 @@ input:checked+label {
     }
 
 }
+
+/* comentario */
