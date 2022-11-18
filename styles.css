@@ -79,12 +79,13 @@ input:checked+label {
 
 .button-attack {
     background-color: #f4e0ab;
-    border-radius: 15px;
+    border-radius: 50%;
     color: black;
     font-family: "Mansalva", cursive;
     padding: 10px;
     box-sizing: border-box;
-    width: 100px;
+    width: 4rem;
+    height: 4rem;
     border: #d38b57 3px solid;
 }
 
@@ -96,8 +97,8 @@ input:checked+label {
     width: 15rem;
     background-color: #f4e0ab;
     color: black;
-    padding: 15px;
-    margin-top: 20px;
+    padding: 10px;
+    margin-top: 10px;
     border-radius: 20px;
     display: flex;
     align-items: center;
@@ -117,9 +118,29 @@ input:checked+label {
     border: black 2px solid;
 }
 
+#player-lives,
+#enemy-lives,
+#player-avatar,
+#enemys-avatar{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+#player-avatar,
+#enemys-avatar{
+    margin-top: 0;
+}
+
+#player-lives,
+#enemy-lives{
+    font-size: 3rem;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
 .attacks {
     display: grid;
-    grid-template-columns: 100px 100px;
+    grid-template-columns: 200px 200px;
 }
 
 .attacks-player,
@@ -127,11 +148,15 @@ input:checked+label {
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: white;
+    color: black;
+    background-color: #f4e0ab;
+    border: #d38b57 2px solid;
+    border-radius: 15px;
+    margin:1rem
 }
 
 
-@media (max-width:360px) {
+@media (max-width:480px) {
 
     .cards,
     .buttons {

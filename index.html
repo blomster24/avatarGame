@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Avatar</title>
-    <script src="./js/avatar.js"></script>
     <link rel="stylesheet" href="./styles.css">
 </head>
 
@@ -17,29 +16,8 @@
 
         <h2 class="subtitle">Choose your Avatar</h2>
 
-        <div class="cards">
-            <input type="radio" name="avatar" id="korra">
-            <label class="avatar-card" for="korra">
-                <p>Korra</p>
-                <img src="./assets/korra.png" alt="Korra">
-            </label>
-            <input type="radio" name="avatar" id="aang">
-            <label class="avatar-card" for="aang">
-                <p>Aang</p>
-                <img src="./assets/Avatar_Aang.png" alt="Aang">
-            </label>
-            <input type="radio" name="avatar" id="roku">
-            <label class="avatar-card" for="roku">
-                <p>Roku</p>
-                <img src="./assets/roku.png" alt="Roku">
-            </label>
-            <input type="radio" name="avatar" id="kyoshi">
-            <label class="avatar-card" for="kyoshi">
-                <p>Kyoshi</p>
-                <img src="./assets/kyoshi.png" alt="Kyoshi">
-            </label>
+        <div id="card-container" class="cards">
         </div>
-
 
         <button id="avatar-button">SELECT AVATAR</button>
 
@@ -47,12 +25,9 @@
 
     <section id="select-attack">
         <h1 id="" class="title">AVATAR FIGHT</h1>
-        <h2 class="subtitle">Choose your attack</h2>
-        <div class="buttons">
-            <button id="air-button" class="button-attack">Air 💨</button>
-            <button id="fire-button" class="button-attack">Fire 🔥</button>
-            <button id="water-button" class="button-attack">Water 💧</button>
-            <button id="earth-button" class="button-attack">Earth 🌱</button>
+        <h2 class="subtitle">Choose your sequence of attacks</h2>
+        <div id="container-buttons"class="buttons">
+            <!-- power buttons -->
         </div>
 
         <div id="messages">
@@ -64,13 +39,13 @@
 
         <div class="attacks">
             <div class="attacks-player">
-                <p id="player-lives">3</p>
+                <p id="player-lives">0</p>
                 <p id="player-avatar"></p>
                 <div id="player-attacks"></div>
 
             </div>
             <div class="attacks-enemy">
-                <p id="enemy-lives">3</p>
+                <p id="enemy-lives">0</p>
                 <p id="enemys-avatar"></p>
                 <div id="enemy-attacks"></div>
             </div>
@@ -78,9 +53,7 @@
         </div>
     </section>
 
-
-
-
+    <script src="./js/avatar.js"></script>
 </body>
 
 </html>

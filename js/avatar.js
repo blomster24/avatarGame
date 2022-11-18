@@ -1,179 +1,325 @@
-let playerAttack = ""
+// CONSTANTS
+// REFERENCES TO DOM
+const sectionSelectAttack = document.getElementById("select-attack")
+const sectionRestart = document.getElementById("restart")
+const buttonAvatarPlayer = document.getElementById("avatar-button")
+const buttonRestart = document.getElementById("restart-button")
+const divButtons = document.getElementById("container-buttons")
+
+const spanPlayerAvatar = document.getElementById("player-avatar")
+const spanEnemysAvatar = document.getElementById("enemys-avatar")
+
+const sectionSelectAvatar = document.getElementById("select-avatar")
+
+const spanPlayerLives = document.getElementById("player-lives")
+const spanEnemyLives = document.getElementById("enemy-lives")
+
+const sectionMessages = document.getElementById("result")
+const divPlayerAttack = document.getElementById("player-attacks")
+const divEnemyAttack = document.getElementById("enemy-attacks")
+
+const cardContainer = document.getElementById("card-container")
+
+let avatars = [];
+let playerAttack
 let enemyAttack = ""
-let resultGame = ""
+let optionAvatar
+let inputKorra
+let inputAang
+let inputRoku
+let inputKyoshi
+let avatarPlayer
+let avatarAttack
+let buttonAir
+let buttonFire
+let buttonWater
+let buttonEarth
+let buttons = []
+let playerAttacks = []
+let enemyAttacks = [] //Los ataques que ha lanzado el enemigo
+let enemyAvatarAttacks = [] //Los ataques que puede lanzar el enemigo
+let indexPlayerAttack
+let indexEnemyAttack
+let playerVictories = 0
+let enemyVictories = 0
 let playerLives = 3
 let enemyLives = 3
 
+// CLASSES
+
+class Avatar {
+    constructor(name, image, lives) {
+        this.name = name;
+        this.image = image;
+        this.lives = lives;
+        this.attacks = []
+    }
+}
+
+
+let korra = new Avatar("Korra", "./assets/korra.png", 3)
+let aang = new Avatar("Aang", "./assets/Avatar_Aang.png", 5)
+let roku = new Avatar("Roku", "./assets/roku.png", 4)
+let kyoshi = new Avatar("Kyoshi", "./assets/kyoshi.png", 3)
+
+korra.attacks.push(
+    { name: "💧", id: "water-button" },
+    { name: "💨", id: "air-button" },
+    { name: "🔥", id: "fire-button" },
+    { name: "🌱", id: "earth-button" }
+)
+
+aang.attacks.push(
+    { name: "💧", id: "water-button" },
+    { name: "💨", id: "air-button" },
+    { name: "🔥", id: "fire-button" },
+    { name: "🌱", id: "earth-button" }
+)
+
+roku.attacks.push(
+    { name: "💧", id: "water-button" },
+    { name: "💨", id: "air-button" },
+    { name: "🔥", id: "fire-button" },
+    { name: "🌱", id: "earth-button" }
+)
+
+kyoshi.attacks.push(
+    { name: "💧", id: "water-button" },
+    { name: "💨", id: "air-button" },
+    { name: "🔥", id: "fire-button" },
+    { name: "🌱", id: "earth-button" }
+)
+
+avatars.push(korra, aang, roku, kyoshi)
 
 function startGame() {
-    let sectionSelectAttack = document.getElementById("select-attack")
     sectionSelectAttack.style.display = "none"
-    let sectionRestart = document.getElementById("restart")
     sectionRestart.style.display = "none"
 
+    avatars.forEach((avatar) => {
+        optionAvatar = `
+        <input type="radio" name="avatar" id="${avatar.name}">
+        <label class="avatar-card" for="${avatar.name}">
+            <p>${avatar.name}</p>
+            <img src="${avatar.image}" alt="${avatar.name}">
+        </label>
+        `
+        cardContainer.innerHTML += optionAvatar
 
-    let buttonAvatarPlayer = document.getElementById("avatar-button")
+        inputKorra = document.getElementById("Korra")
+        inputAang = document.getElementById("Aang")
+        inputRoku = document.getElementById("Roku")
+        inputKyoshi = document.getElementById("Kyoshi")
+
+    })
+
     buttonAvatarPlayer.addEventListener("click", selectAvatarPlayer)
 
-    let buttonAir = document.getElementById("air-button")
-    buttonAir.addEventListener("click", attackAir)
-    let buttonFire = document.getElementById("fire-button")
-    buttonFire.addEventListener("click", attackFire)
-    let buttonWater = document.getElementById("water-button")
-    buttonWater.addEventListener("click", attackWater)
-    let buttonEarth = document.getElementById("earth-button")
-    buttonEarth.addEventListener("click", attackEarth)
-
-    let buttonRestart = document.getElementById("restart-button")
     buttonRestart.addEventListener("click", restartGame)
-
 }
 
 function selectAvatarPlayer() {
-
-
-    let inputKorra = document.getElementById("korra")
-    let inputAang = document.getElementById("aang")
-    let inputRoku = document.getElementById("roku")
-    let inputKyoshi = document.getElementById("kyoshi")
-
-    let spanPlayerAvatar = document.getElementById("player-avatar")
-
     if (inputKorra.checked) {
-        spanPlayerAvatar.innerHTML = "Korra"
+        spanPlayerAvatar.innerHTML = inputKorra.id
+        avatarPlayer = inputKorra.id
     } else if (inputAang.checked) {
-        spanPlayerAvatar.innerHTML = "Aang"
+        spanPlayerAvatar.innerHTML = inputAang.id
+        avatarPlayer = inputAang.id
     } else if (inputRoku.checked) {
-        spanPlayerAvatar.innerHTML = "Roku"
+        spanPlayerAvatar.innerHTML = inputRoku.id
+        avatarPlayer = inputRoku.id
     } else if (inputKyoshi.checked) {
-        spanPlayerAvatar.innerHTML = "Kyoshi"
+        spanPlayerAvatar.innerHTML = inputKyoshi.id
+        avatarPlayer = inputKyoshi.id
     } else {
         alert("You didn't selected an Avatar")
     }
 
     if (spanPlayerAvatar.innerHTML != "") {
-        let sectionSelectAvatar = document.getElementById("select-avatar")
         sectionSelectAvatar.style.display = "none"
-        let sectionSelectAttack = document.getElementById("select-attack")
         sectionSelectAttack.style.display = "flex"
+        extractAttacks(avatarPlayer)
         selectEnemysAvatar()
     }
 
 }
 
-function selectEnemysAvatar() {
-    let random = numRandom(1, 4)
-    let enemysAvatar = ""
-    let spanEnemysAvatar = document.getElementById("enemys-avatar")
-    let spanPlayerAvatar = document.getElementById("player-avatar")
-    if (spanPlayerAvatar.innerHTML == "") {
-
-    } else {
-        switch (random) {
-            case 1: enemysAvatar = "Korra"
-                break
-            case 2: enemysAvatar = "Aang"
-                break
-            case 3: enemysAvatar = "Roku"
-                break
-            case 4: enemysAvatar = "Kyoshi"
-                break
+function extractAttacks(avatarPlayer) {
+    let attacks
+    for (let i = 0; i < avatars.length; i++) {
+        if (avatarPlayer == avatars[i].name) {
+            attacks = avatars[i].attacks
         }
-        spanEnemysAvatar.innerHTML = " " + enemysAvatar + " "
     }
+    showAttacks(attacks)
 }
 
-function attackAir() {
-    playerAttack = "AIR"
-    randomEnemyAttack()
+function showAttacks(attacks) {
+
+    attacks.forEach((attack) => {
+        avatarAttack = `
+                <button id="${attack.id}" class="button-attack BAttack">${attack.name}</button>
+        `
+        divButtons.innerHTML += avatarAttack
+    })
+
+    buttonAir = document.getElementById("air-button")
+    buttonFire = document.getElementById("fire-button")
+    buttonWater = document.getElementById("water-button")
+    buttonEarth = document.getElementById("earth-button")
+
+    buttons = document.querySelectorAll(".BAttack")
 }
 
-function attackFire() {
-    playerAttack = "FIRE"
-    randomEnemyAttack()
+function attackSecuence() {
+    buttons.forEach((button) => {
+        button.addEventListener("click", (e) => {
+            if (e.target.textContent === "🔥") {
+                playerAttack = "FIRE"
+                playerAttacks.push("FIRE")
+                console.log(playerAttacks)
+                button.style.background = "#112f58"
+                button.disabled = true
+            }
+            else if (e.target.textContent === "💧") {
+                playerAttack = "WATER"
+                playerAttacks.push("WATER")
+                console.log(playerAttacks)
+                button.style.background = "#112f58"
+                button.disabled = true
+            }
+            else if (e.target.textContent === "💨") {
+                playerAttack = "AIR"
+                playerAttacks.push("AIR")
+                console.log(playerAttacks)
+                button.style.background = "#112f58"
+                button.disabled = true
+            }
+            else {
+                playerAttack = "EARTH"
+                playerAttacks.push("EARTH")
+                console.log(playerAttacks)
+                button.style.background = "#112f58"
+                button.disabled = true
+            }
+            randomEnemyAttack()
+        })
+    })
+
 }
 
-function attackWater() {
-    playerAttack = "WATER"
-    randomEnemyAttack()
-}
 
-function attackEarth() {
-    playerAttack = "EARTH"
-    randomEnemyAttack()
+function selectEnemysAvatar() {
+    let random = numRandom(0, avatars.length - 1)
+
+    spanEnemysAvatar.innerHTML = avatars[random].name
+    enemyAvatarAttacks = avatars[random].attacks
+    attackSecuence()
 }
 
 function randomEnemyAttack() {
-    let random = numRandom(1, 4)
+    let random = numRandom(0, enemyAvatarAttacks.length - 1)
     switch (random) {
-        case 1:
+        case 0:
             enemyAttack = "AIR"
+            enemyAttacks.push("AIR")
+            break;
+        case 1:
+            enemyAttack = "FIRE"
+            enemyAttacks.push("FIRE")
             break;
         case 2:
-            enemyAttack = "FIRE"
+            enemyAttack = "WATER"
+            enemyAttacks.push("WATER")
             break;
         case 3:
-            enemyAttack = "WATER"
-            break;
-        case 4:
             enemyAttack = "EARTH"
+            enemyAttacks.push("EARTH")
             break
     }
+    console.log(enemyAttacks)
+    startFight()
+    //fight()
+}
 
-    fight()
+function startFight() {
+    if (playerAttacks.length === 4) {
+        fight()
+    }
+}
+
+function indexOpponents(player, enemy) {
+    indexPlayerAttack = playerAttacks[player]
+    indexEnemyAttack = enemyAttacks[enemy]
 }
 
 function fight() {
-    let spanPlayerLives = document.getElementById("player-lives")
-    let spanEnemyLives = document.getElementById("enemy-lives")
 
-
-    if (playerAttack == "WATER" && (enemyAttack == "EARTH" || enemyAttack == "FIRE")) {
-        resultGame = "YOU WON!! 🥳"
-        enemyLives--
-        spanEnemyLives.innerHTML = enemyLives
-    } else if (playerAttack == "EARTH" && enemyAttack == "FIRE") {
-        resultGame = "YOU WON!! 🥳"
-        enemyLives--
-        spanEnemyLives.innerHTML = enemyLives
-    } else if (playerAttack == "FIRE" && enemyAttack == "AIR") {
-        resultGame = "YOU WON!! 🥳"
-        enemyLives--
-        spanEnemyLives.innerHTML = enemyLives
-    } else if (playerAttack == "AIR" && (enemyAttack == "WATER" || enemyAttack == "EARTH")) {
-        resultGame = "YOU WON!! 🥳"
-        enemyLives--
-        spanEnemyLives.innerHTML = enemyLives
-    } else if (playerAttack == enemyAttack) {
-        resultGame = "TIE"
-    } else {
-        resultGame = "YOU LOST 😭"
-        playerLives--
-        spanPlayerLives.innerHTML = playerLives
+    for (let i = 0; i < playerAttacks.length; i++) {
+        if (playerAttacks[i] == "WATER" && (enemyAttacks[i] == "EARTH" || enemyAttacks[i] == "FIRE")) {
+            indexOpponents(i, i)
+            createMessage("YOU WON!! 🥳")
+            playerVictories++
+            spanPlayerLives.innerHTML = playerVictories
+            divPlayerAttack.childNodes[i].innerHTML+="✅"
+            divEnemyAttack.childNodes[i].innerHTML+="❌"
+        } else if (playerAttacks[i] == "EARTH" && enemyAttacks[i] == "FIRE") {
+            indexOpponents(i, i)
+            createMessage("YOU WON!! 🥳")
+            playerVictories++
+            spanPlayerLives.innerHTML = playerVictories
+            divPlayerAttack.childNodes[i].innerHTML+="✅"
+            divEnemyAttack.childNodes[i].innerHTML+="❌"
+        } else if (playerAttacks[i] == "FIRE" && enemyAttacks[i] == "AIR") {
+            indexOpponents(i, i)
+            createMessage("YOU WON!! 🥳")
+            playerVictories++
+            spanPlayerLives.innerHTML = playerVictories
+            divPlayerAttack.childNodes[i].innerHTML+="✅"
+            divEnemyAttack.childNodes[i].innerHTML+="❌"
+        } else if (playerAttacks[i] == "AIR" && (enemyAttacks[i] == "WATER" || enemyAttacks[i] == "EARTH")) {
+            indexOpponents(i, i)
+            createMessage("YOU WON!! 🥳")
+            playerVictories++
+            spanPlayerLives.innerHTML = playerVictories
+            divPlayerAttack.childNodes[i].innerHTML+="✅"
+            divEnemyAttack.childNodes[i].innerHTML+="❌"
+        } else if (playerAttacks[i] == enemyAttacks[i]) {
+            indexOpponents(i, i)
+            createMessage("TIE")
+            divPlayerAttack.childNodes[i].innerHTML+="🟡"
+            divEnemyAttack.childNodes[i].innerHTML+="🟡"
+        } else {
+            indexOpponents(i, i)
+            createMessage("YOU LOST 😭")
+            enemyVictories++
+            spanEnemyLives.innerHTML = enemyVictories
+            divPlayerAttack.childNodes[i].innerHTML+="❌"
+            divEnemyAttack.childNodes[i].innerHTML+="✅"
+        }
     }
-    createMessage()
-    win()
+    checkWins()
 }
 
-function win() {
-    if (enemyLives == 0) {
+function checkWins() {
+    if (playerVictories > enemyVictories) {
         createFinalMessage("YOU WON THE GAME!!!!!")
-    } else if (playerLives == 0) {
+    } else if (enemyVictories > playerVictories)
         createFinalMessage("THE ENEMY WON THE GAME")
+    else {
+        createFinalMessage("IT'S A TIE")
     }
 }
 
-function createMessage() {
-    let sectionMessages = document.getElementById("result")
-    let divPlayerAttack = document.getElementById("player-attacks")
-    let divEnemyAttack = document.getElementById("enemy-attacks")
+function createMessage(resultGame) {
 
     let newPlayerAttack = document.createElement("p")
     let newEnemyAttack = document.createElement("p")
 
     sectionMessages.innerHTML = resultGame
-    newPlayerAttack.innerHTML = playerAttack
-    newEnemyAttack.innerHTML = enemyAttack
+    sectionMessages.style.fontWeight="bold"
+    newPlayerAttack.innerHTML = indexPlayerAttack
+    newEnemyAttack.innerHTML = indexEnemyAttack
 
     divPlayerAttack.appendChild(newPlayerAttack)
     divEnemyAttack.appendChild(newEnemyAttack)
@@ -184,16 +330,11 @@ function createFinalMessage(result) {
 
     sectionMessages.innerHTML = result
 
-    let buttonAir = document.getElementById("air-button")
-    buttonAir.disabled = true
-    let buttonFire = document.getElementById("fire-button")
+    buttonAir
     buttonFire.disabled = true
-    let buttonWater = document.getElementById("water-button")
     buttonWater.disabled = true
-    let buttonEarth = document.getElementById("earth-button")
     buttonEarth.disabled = true
 
-    let sectionRestart = document.getElementById("restart")
     sectionRestart.style.display = "block"
 }
 
