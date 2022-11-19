@@ -82,10 +82,11 @@ input:checked+label {
     border-radius: 50%;
     color: black;
     font-family: "Mansalva", cursive;
+    font-size: 2rem;
     padding: 10px;
     box-sizing: border-box;
-    width: 4rem;
-    height: 4rem;
+    width: 5rem;
+    height: 5rem;
     border: #d38b57 3px solid;
 }
 
@@ -121,18 +122,18 @@ input:checked+label {
 #player-lives,
 #enemy-lives,
 #player-avatar,
-#enemys-avatar{
+#enemys-avatar {
     font-size: 1.5rem;
     font-weight: bold;
 }
 
 #player-avatar,
-#enemys-avatar{
+#enemys-avatar {
     margin-top: 0;
 }
 
 #player-lives,
-#enemy-lives{
+#enemy-lives {
     font-size: 3rem;
     margin-bottom: 0;
     margin-top: 0;
@@ -152,9 +153,19 @@ input:checked+label {
     background-color: #f4e0ab;
     border: #d38b57 2px solid;
     border-radius: 15px;
-    margin:1rem
+    margin: 1rem
 }
 
+#view-map {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#map{
+    border: 3px #d38b57 solid;
+    background-color: #f4e0ab;
+   }
 
 @media (max-width:480px) {
 

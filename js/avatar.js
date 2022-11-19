@@ -17,8 +17,11 @@ const spanEnemyLives = document.getElementById("enemy-lives")
 const sectionMessages = document.getElementById("result")
 const divPlayerAttack = document.getElementById("player-attacks")
 const divEnemyAttack = document.getElementById("enemy-attacks")
-
 const cardContainer = document.getElementById("card-container")
+
+const sectionViewMap = document.getElementById('view-map')
+const map = document.getElementById('map')
+
 
 let avatars = [];
 let playerAttack
@@ -44,6 +47,7 @@ let playerVictories = 0
 let enemyVictories = 0
 let playerLives = 3
 let enemyLives = 3
+let canv = map.getContext('2d')
 
 // CLASSES
 
@@ -53,10 +57,17 @@ class Avatar {
         this.image = image;
         this.lives = lives;
         this.attacks = []
+        this.x = 20
+        this.y = 30
+        this.width = 80
+        this.height = 80
+        this.mapImage = new Image()
+        this.mapImage.src = image
     }
 }
 
 
+//let korra = new Avatar("Korra", "./assets/korra.png", 3)
 let korra = new Avatar("Korra", "./assets/korra.png", 3)
 let aang = new Avatar("Aang", "./assets/Avatar_Aang.png", 5)
 let roku = new Avatar("Roku", "./assets/roku.png", 4)
@@ -93,6 +104,7 @@ kyoshi.attacks.push(
 avatars.push(korra, aang, roku, kyoshi)
 
 function startGame() {
+    sectionViewMap.style.display = "none"
     sectionSelectAttack.style.display = "none"
     sectionRestart.style.display = "none"
 
@@ -137,7 +149,9 @@ function selectAvatarPlayer() {
 
     if (spanPlayerAvatar.innerHTML != "") {
         sectionSelectAvatar.style.display = "none"
-        sectionSelectAttack.style.display = "flex"
+        drawAvatar()
+        //sectionSelectAttack.style.display = "flex"
+
         extractAttacks(avatarPlayer)
         selectEnemysAvatar()
     }
@@ -158,7 +172,7 @@ function showAttacks(attacks) {
 
     attacks.forEach((attack) => {
         avatarAttack = `
-                <button id="${attack.id}" class="button-attack BAttack">${attack.name}</button>
+                <button id="${attack.id}" class="button-attack BAttack" alt="${attack.name}">${attack.name}</button>
         `
         divButtons.innerHTML += avatarAttack
     })
@@ -261,41 +275,41 @@ function fight() {
             createMessage("YOU WON!! 🥳")
             playerVictories++
             spanPlayerLives.innerHTML = playerVictories
-            divPlayerAttack.childNodes[i].innerHTML+="✅"
-            divEnemyAttack.childNodes[i].innerHTML+="❌"
+            divPlayerAttack.childNodes[i].innerHTML += "✅"
+            divEnemyAttack.childNodes[i].innerHTML += "❌"
         } else if (playerAttacks[i] == "EARTH" && enemyAttacks[i] == "FIRE") {
             indexOpponents(i, i)
             createMessage("YOU WON!! 🥳")
             playerVictories++
             spanPlayerLives.innerHTML = playerVictories
-            divPlayerAttack.childNodes[i].innerHTML+="✅"
-            divEnemyAttack.childNodes[i].innerHTML+="❌"
+            divPlayerAttack.childNodes[i].innerHTML += "✅"
+            divEnemyAttack.childNodes[i].innerHTML += "❌"
         } else if (playerAttacks[i] == "FIRE" && enemyAttacks[i] == "AIR") {
             indexOpponents(i, i)
             createMessage("YOU WON!! 🥳")
             playerVictories++
             spanPlayerLives.innerHTML = playerVictories
-            divPlayerAttack.childNodes[i].innerHTML+="✅"
-            divEnemyAttack.childNodes[i].innerHTML+="❌"
+            divPlayerAttack.childNodes[i].innerHTML += "✅"
+            divEnemyAttack.childNodes[i].innerHTML += "❌"
         } else if (playerAttacks[i] == "AIR" && (enemyAttacks[i] == "WATER" || enemyAttacks[i] == "EARTH")) {
             indexOpponents(i, i)
             createMessage("YOU WON!! 🥳")
             playerVictories++
             spanPlayerLives.innerHTML = playerVictories
-            divPlayerAttack.childNodes[i].innerHTML+="✅"
-            divEnemyAttack.childNodes[i].innerHTML+="❌"
+            divPlayerAttack.childNodes[i].innerHTML += "✅"
+            divEnemyAttack.childNodes[i].innerHTML += "❌"
         } else if (playerAttacks[i] == enemyAttacks[i]) {
             indexOpponents(i, i)
             createMessage("TIE")
-            divPlayerAttack.childNodes[i].innerHTML+="🟡"
-            divEnemyAttack.childNodes[i].innerHTML+="🟡"
+            divPlayerAttack.childNodes[i].innerHTML += "🟡"
+            divEnemyAttack.childNodes[i].innerHTML += "🟡"
         } else {
             indexOpponents(i, i)
             createMessage("YOU LOST 😭")
             enemyVictories++
             spanEnemyLives.innerHTML = enemyVictories
-            divPlayerAttack.childNodes[i].innerHTML+="❌"
-            divEnemyAttack.childNodes[i].innerHTML+="✅"
+            divPlayerAttack.childNodes[i].innerHTML += "❌"
+            divEnemyAttack.childNodes[i].innerHTML += "✅"
         }
     }
     checkWins()
@@ -317,7 +331,7 @@ function createMessage(resultGame) {
     let newEnemyAttack = document.createElement("p")
 
     sectionMessages.innerHTML = resultGame
-    sectionMessages.style.fontWeight="bold"
+    sectionMessages.style.fontWeight = "bold"
     newPlayerAttack.innerHTML = indexPlayerAttack
     newEnemyAttack.innerHTML = indexEnemyAttack
 
@@ -345,5 +359,22 @@ function restartGame() {
 function numRandom(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
+
+function drawAvatar() {
+    sectionSelectAttack.style.display = "none"
+    sectionViewMap.style.display = 'flex'
+    canv.clearRect(0, 0, map.clientWidth, map.clientHeight)
+
+    canv.fillRect(5, 15, 20, 40) 
+
+    canv.drawImage(korra.image, korra.x, korra.y, korra.width, korra.height)
+
+}
+
+function moveAvatar() {
+    korra.x += 5
+    drawAvatar()
+}
+
 
 window.addEventListener("load", startGame)
