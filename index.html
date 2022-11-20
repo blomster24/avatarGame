@@ -23,10 +23,15 @@
 
     </section>
 
-    <section id="view-map" >
-        <h1 id="" class="title">Recorre el mapa con tu Avatar</h1>
-        <canvas id="map" width="500" height="400"></canvas>
-        <button onclick="moveAvatar()">Mover</button>
+    <section id="view-map">
+        <h2 id="" class="subtitle">Find an enemy Avatar</h2>
+        <canvas id="map"></canvas>
+        <button onmouseup="stopMovement()" onmousedown="moveUp()">Up</button>
+        <div>
+            <button onmouseup="stopMovement()" onmousedown="moveLeft()">Left</button>    
+            <button onmouseup="stopMovement()" onmousedown="moveDown()">Down</button>
+            <button onmouseup="stopMovement()" onmousedown="moveRight()">Right</button>
+        </div>
     </section>
 
 

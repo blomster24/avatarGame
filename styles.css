@@ -162,10 +162,24 @@ input:checked+label {
     justify-content: center;
 }
 
-#map{
+#map {
     border: 3px #d38b57 solid;
     background-color: #f4e0ab;
-   }
+}
+
+#view-map button {
+    background-color: #f4e0ab;
+    border-radius: 50%;
+    color: black;
+    font-family: "Mansalva", cursive;
+    font-size: 2rem;
+    padding:0;
+    box-sizing: border-box;
+    width: 6rem;
+    height: 4rem;
+    border: #d38b57 3px solid;
+    margin: 0.4rem;
+}
 
 @media (max-width:480px) {
 
@@ -173,7 +187,18 @@ input:checked+label {
     .buttons {
         flex-direction: column;
     }
+    #map{
+        width: 90%;
+    }
 
+}
+
+@media (max-width:480px) {
+    #view-map div{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
 }
 
 /* comentario */
