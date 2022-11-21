@@ -1,0 +1,23 @@
+{
+  "name": "avatar",
+  "version": "1.0.0",
+  "description": "avatar fight",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blomster24/mokepon.git"
+  },
+  "author": "blomster24",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/blomster24/mokepon/issues"
+  },
+  "homepage": "https://github.com/blomster24/mokepon#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  }
+}
